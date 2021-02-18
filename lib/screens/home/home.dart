@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_me/services/auth.dart';
 
@@ -22,6 +24,27 @@ class Home extends StatelessWidget {
               },
           ),
         ],
+      ),
+      body: Center(
+        child: RichText(
+          text: TextSpan(
+            text: 'Usually reply with ',
+            style: TextStyle(color: Colors.black, fontSize: 16.0),
+            children: <TextSpan>[
+              TextSpan(
+                text: '\"Nae bad yoursel?\"',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyan,
+                  // decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    print('Terms of Service"');
+                }),
+            ],
+          ),
+        ),
       ),
     );
   }
