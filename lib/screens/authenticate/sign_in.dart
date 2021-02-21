@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localize_me/services/auth.dart';
+import 'package:localize_me/shared/constants.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -20,11 +21,12 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.grey[50],
         elevation: 0.0,
-        title: Text('Sign in'),
+        brightness: Brightness.light,
+        title: Text('Sign in', style: TextStyle(color: Colors.black87)),
         actions: [
           FlatButton.icon(
             onPressed: () {
@@ -44,6 +46,7 @@ class _SignInState extends State<SignIn> {
                 height: 20.0,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -52,6 +55,7 @@ class _SignInState extends State<SignIn> {
                 height: 20.0,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -73,6 +77,7 @@ class _SignInState extends State<SignIn> {
                   dynamic result =
                       await _auth.signInWithEmailAndPassword(email, password);
                   if (result == null) {
+                    // sign in was unsuccessful
                     //TODO do something
                   }
                 },
@@ -83,7 +88,11 @@ class _SignInState extends State<SignIn> {
                   onPrimary: Colors.white, // foreground
                 ),
                 onPressed: () async {
-                  await _auth.signInAnon();
+                  dynamic result = await _auth.signInAnon();
+                  if (result == null) {
+                    // sign in was unsuccessful
+                    //TODO display appropriate message
+                  }
                 },
                 child: Text('Anonymous Sign In'),
               ),
